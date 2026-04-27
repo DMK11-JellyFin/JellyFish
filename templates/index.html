@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block contenu %}
+
+<div class="stats">
+    <div class="stat-card">
+        <div class="nombre">{{ total }}</div>
+        <div class="label">👥 Total utilisateurs</div>
+    </div>
+    <div class="stat-card free">
+        <div class="nombre">{{ free }}</div>
+        <div class="label">🟢 Free</div>
+    </div>
+    <div class="stat-card normal">
+        <div class="nombre">{{ normal }}</div>
+        <div class="label">🔵 Normal</div>
+    </div>
+    <div class="stat-card vip">
+        <div class="nombre">{{ vip }}</div>
+        <div class="label">⭐ VIP</div>
+    </div>
+</div>
+
+<form method="GET" action="/">
+    <div class="recherche-bar">
+        <input type="text" name="q" placeholder="🔍 Rechercher un utilisateur..." value="{{ recherche }}">
+        <button type="submit">Rechercher</button>
+    </div>
+</form>
+
+{% if utilisateurs %}
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Nom d'utilisateur</th>
+        <th>Abonnement</th>
+        <th>Action</th>
+    </tr>
+    {% for u in utilisateurs %}
+    <tr>
+        <td>{{ u.nom }}</td>
+        <td><span style="color:#7b2ff7">@</span>{{ u.username }}</td>
+        <td><span class="badge {{ u.abonnement }}">{{ u.abonnement }}</span></td>
+        <td><a class="btn-supprimer" href="/supprimer/{{ u.id }}" title="Supprimer">🗑️</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<div class="vide">
+    {% if recherche %}
+        😕 Aucun résultat pour "<strong>{{ recherche }}</strong>"
+    {% else %}
+        🪼 Aucun utilisateur pour l'instant.<br>
+        <a href="/ajouter" style="color:#7b2ff7">➕ Ajouter le premier !</a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}
