@@ -27,15 +27,15 @@ def index():
         utilisateurs = Utilisateur.query.all()
 
     total = Utilisateur.query.count()
-    free = Utilisateur.query.filter_by(abonnement="Free").count()
-    normal = Utilisateur.query.filter_by(abonnement="Normal").count()
-    vip = Utilisateur.query.filter_by(abonnement="VIP").count()
+    basic = Utilisateur.query.filter_by(abonnement="Basic").count()
+    standard = Utilisateur.query.filter_by(abonnement="Standard").count()
+    premium = Utilisateur.query.filter_by(abonnement="Premium").count()
 
     return render_template("index.html",
         utilisateurs=utilisateurs,
         recherche=recherche,
-        total=total, free=free,
-        normal=normal, vip=vip)
+        total=total, basic=basic,
+        standard=standard, premium=premium)
 
 @app.route("/ajouter", methods=["GET", "POST"])
 def ajouter():
